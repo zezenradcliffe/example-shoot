@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untuk Kamu ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ff4d6d, #ffc0cb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    img.main-img {
+      width: 250px;
+      height: 250px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      object-fit: cover;
+      margin-bottom: 30px;
+      z-index: 2;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      z-index: 2;
+    }
+
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #accept {
+      background-color: #ff0055;
+      color: white;
+    }
+
+    #reject {
+      background-color: white;
+      color: #ff0055;
+      border: 2px solid #ff0055;
+    }
+
+    #reject:hover {
+      transform: scale(1.05);
+      background-color: #ffe6eb;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.8rem;
+      color: white;
+      z-index: 2;
+    }
+
+    .flower {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .popup-img {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <h1>kamu jadi pacarku?</h1>
+  <img class="main-img" src="https://files.catbox.moe/x4rzi1.jpg" alt="Foto Cinta">
+  <div class="buttons">
+    <button id="accept">Terima 💖</button>
+    <button id="reject">Tolak 😢</button>
+  </div>
+  <footer>❤️ Dari Abdul dengan Cinta ❤️</footer>
+
+  <!-- Pop-up Gambar -->
+  <img id="img-accept" class="popup-img" src="https://files.catbox.moe/zjdudp.jpg" alt="Terima">
+  <img id="img-reject" class="popup-img" src="https://files.catbox.moe/h5o42g.jpg" alt="Tolak">
+
+  <!-- Audio -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="blue.mp3" type="audio/mp3">
+    Browser kamu tidak mendukung audio 😢
+  </audio>
+
+  <!-- JavaScript -->
+  <script>
+    const acceptBtn = document.getElementById('accept');
+    const rejectBtn = document.getElementById('reject');
+    const imgAccept = document.getElementById('img-accept');
+    const imgReject = document.getElementById('img-reject');
+    let grow = 1;
+    let rejectCount = 0;
+
+    rejectBtn.addEventListener('click', () => {
+      grow += 0.2;
+      rejectCount++;
+      acceptBtn.style.transform = `scale(${grow})`;
+
+      if (rejectCount === 5) {
+        imgReject.style.display = 'block';
+        setTimeout(() => imgReject.style.display = 'none', 4000);
+      }
+    });
+
+    acceptBtn.addEventListener('click', () => {
+      imgAccept.style.display = 'block';
+      setTimeout(() => {
+        imgAccept.style.display = 'none';
+        const waNumber = '6281292677800';
+        const message = encodeURIComponent('Ayo sayang aku mau');
+        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+      }, 2500);
+    });
+
+    // Bunga jatuh
+    const flowers = ['🌹','🌸','💮','🌺'];
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 6000);
+    }
+    setInterval(createFlower, 250);
+
+    // Trigger play di HP
+    window.addEventListener('click', () => {
+      document.getElementById("bgMusic").play().catch(()=>{});
+    });
+  </script>
+</body>
+                                       </html>
